@@ -30,8 +30,8 @@
   <div class="container">
     <div class="row">
       {{#each item in model}}
-        <div class="col-sm-4">
-          {{this-is-dog item=item}}
+        <div class="col-sm-6">
+          {{inactive-image item=item}}
         </div>
       {{/each}}
     </div>
@@ -39,16 +39,19 @@
  
   </script>
   
-  <script type="text/x-handlebars" data-template-name="components/this-is-dog">
+  <script type="text/x-handlebars" data-template-name="components/inactive-image">
      <header><h2>{{item.title}}</h2></header>
      {{#unless enteredViewport}}
       <img height="700" {{ bind-attr src=item.tiny}} >
      {{/unless}}
      {{#if enteredViewport}}
-       <section>
-       <img height="700" {{ bind-attr src=item.small}} >
-       </section>
+       {{active-image item=item}}
      {{/if}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="components/active-image">
+  <canvas {{ bind-attr id=item.title }}>
+  </canvas>
   </script>
 
 </body>

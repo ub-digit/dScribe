@@ -7,14 +7,13 @@ App.Router.map(function() {
 App.IndexRoute = Ember.Route.extend({
   model: function() {
     var list=[];
-    for(var i=1;i<=1012;i++){
+    for(var i=1;i<=101;i++){
       var str = "" + i
       var pad = "0000"
       var str = pad.substring(0, pad.length - str.length) + str
       list.push({small: "sample_jobs/job1/web_small/" + str + ".jpg", tiny: "sample_jobs/job1/web_tiny/" + str + ".jpg", title: str});
     }
     return list;
-    //return ['Shiba Inu', 'Siberian Husky', 'Labrador', 'Golden Retriever', 'Malamute', 'Pomeranian', 'Doberman'];
   },
   setupController: function(controller, model) {
     controller.set('model', model);
@@ -31,7 +30,7 @@ App.InViewportMixin = Ember.Mixin.create({
     rect = this.get('boundingClientRect');
     windowHeight = this.get('windowHeight');
     windowWidth = this.get('windowWidth');
-    console.log(rect.height)
+    //console.log(rect.height)
     return (
       rect.top >= -200-rect.height && 
       rect.left >= 0 && 
@@ -68,7 +67,53 @@ App.InViewportMixin = Ember.Mixin.create({
   }).on('willDestroyElement')
 });
 
-App.ThisIsDogComponent = Ember.Component.extend(App.InViewportMixin, {
-  classNames: ['dog-card'],
+App.InactiveImageComponent = Ember.Component.extend(App.InViewportMixin, {
+  classNames: ['inactive-image'],
   classNameBindings: ['enteredViewport:entered-viewport']
+});
+
+App.ActiveImageComponent = Ember.Component.extend({
+  classNames: ['active-image'],
+
+  didInsertElement: function(){
+     // loading source image
+    var item = this.get('item')
+    console.log(item)
+    image = new Image();
+    image.onload = function () {
+    }
+    image.src = item.small;
+
+    // creating canvas and context objects
+    canvas = document.getElementById(item.title);
+    ctx = canvas.getContext('2d');
+    var scaleratio = image.height/700
+    canvas.height = 700;
+    canvas.width = image.width/scaleratio;
+
+    // create initial selection
+    var selection = {x: 200,y: 200,w: 200,h: 200}
+
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // clear canvas
+
+    // draw source image
+    ctx.drawImage(image, 0, 0, ctx.canvas.width, ctx.canvas.height);
+
+    // and make it darker
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+    ctx.strokeStyle = '#000';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(selection.x, selection.y, selection.w, selection.h);
+    // draw part of original image
+    ctx.drawImage(image, selection.x, selection.y, selection.w, selection.h,selection.x, selection.y, selection.w, selection.h);
+
+    //console.log('Skapar element ');
+  },
+
+  willDestroyElement: function(){
+    //console.log('Destroying elememnt');
+  }
+
 });
