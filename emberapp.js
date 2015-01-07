@@ -78,12 +78,12 @@ App.ActiveImageComponent = Ember.Component.extend({
   didInsertElement: function(){
      // loading source image
     var item = this.get('item')
-    console.log(item)
+    //console.log(item)
     image = new Image();
     image.onload = function () {
     }
     image.src = item.small;
-
+    console.log(image)
     // creating canvas and context objects
     canvas = document.getElementById(item.title);
     ctx = canvas.getContext('2d');
@@ -94,21 +94,23 @@ App.ActiveImageComponent = Ember.Component.extend({
     // create initial selection
     var selection = {x: 200,y: 200,w: 200,h: 200}
 
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // clear canvas
+    Ember.run.scheduleOnce('afterRender', this, function() {
 
-    // draw source image
-    ctx.drawImage(image, 0, 0, ctx.canvas.width, ctx.canvas.height);
+      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // clear canvas
 
-    // and make it darker
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      // draw source image
+      ctx.drawImage(image, 0, 0, ctx.canvas.width, ctx.canvas.height);
 
-    ctx.strokeStyle = '#000';
-    ctx.lineWidth = 1;
-    ctx.strokeRect(selection.x, selection.y, selection.w, selection.h);
-    // draw part of original image
-    ctx.drawImage(image, selection.x, selection.y, selection.w, selection.h,selection.x, selection.y, selection.w, selection.h);
+      // and make it darker
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+      ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(selection.x/scaleratio, selection.y/scaleratio, selection.w/scaleratio, selection.h/scaleratio);
+      // draw part of original image
+      ctx.drawImage(image, selection.x, selection.y, selection.w, selection.h,selection.x/scaleratio, selection.y/scaleratio, selection.w/scaleratio, selection.h/scaleratio);
+    });
     //console.log('Skapar element ');
   },
 
