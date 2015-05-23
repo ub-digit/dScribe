@@ -35,11 +35,22 @@ h1.title {
     /* @include transition(all 0.1s ease-out); */
     color: @black;
   }
-  &:hover {
+  &:focus {
     border-color: @green;
   }
 }
 
 .inactive-image {
   height: 800px;
+  border: 1px solid white;
+  text-align:center;
+
+}
+
+canvas {
+  border:1px solid black;
+}
+
+canvas:focus {
+  border-color: @green;
 }
