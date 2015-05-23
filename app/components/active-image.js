@@ -54,11 +54,16 @@ export default Ember.Component.extend({
     // draw part of original image
     ctx.drawImage(image, selection.x, selection.y, selection.w, selection.h,selection.x/scaleratio, selection.y/scaleratio, selection.w/scaleratio, selection.h/scaleratio);
 
+    // Draw page type
+    ctx.font="20px Arial";
+    ctx.fillText(this.get('item.physical'),ctx.canvas.width-100,20);
+
     // Draw active stuff
     if (this.get('activeFrame')){
-      ctx.strokeRect((selection.x/scaleratio)-1, (selection.y/scaleratio)-1, (selection.w/scaleratio)+2, (selection.h/scaleratio)+2);
+      ctx.font="20px Arial";
+      ctx.fillText(this.get('selectionString'),selection.x,selection.y+20);
     }
-  }.observes('image', 'item.selection.x', 'item.selection.y', 'item.selection.h', 'item.selection.w', 'height', 'activeFrame'),
+  }.observes('image', 'item.selection.x', 'item.selection.y', 'item.selection.h', 'item.selection.w', 'height', 'activeFrame', 'item.physical', 'item.logical'),
   willDestroyElement: function(){
     //console.log('Destroying elememnt');
   },
@@ -140,5 +145,9 @@ export default Ember.Component.extend({
   _reduceSelectionVertical: function(spread){
     this.incrementProperty('item.selection.y', parseInt(spread/2));
     this.decrementProperty('item.selection.h', spread);
-  }
+  },
+
+  selectionString: Ember.computed('item.selection.x', 'item.selection.y', 'item.selection.h', 'item.selection.w', function(){
+    return this.get('item.selection.x') + ', ' + this.get('item.selection.y') + ' ' + this.get('item.selection.w') + ' x ' + this.get('item.selection.h');
+  })
 });
