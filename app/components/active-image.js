@@ -24,7 +24,6 @@ export default Ember.Component.extend({
     // Runs when image is loaded
     promise.then(function(image){
       that.set('image', image);
-      that.set('item.selection', {x: 0, y: 0, h: image.height, w: image.width});
       Ember.run.scheduleOnce('afterRender', this, function() {
       // creating canvas and context objects
         //that._renderCanvas();
@@ -69,12 +68,10 @@ export default Ember.Component.extend({
   },
   mouseEnter: function(){
     this.set('activeFrame', true);
-    //this._renderCanvas();
     return this.$().attr({ tabindex: 1 }), this.$().focus();
   },
   mouseLeave: function(){
     this.set('activeFrame', false);
-    //this._renderCanvas();
   },
 
   keyDown: function(e) {

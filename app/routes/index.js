@@ -18,7 +18,7 @@ export default Ember.Route.extend({
       currentItem = Item.create({
         small: "images/sample_jobs/job1/web_small/" + str + ".jpg", 
         tiny: "images/sample_jobs/job1/web_tiny/" + str + ".jpg", title: str,
-        selection: {x: 200, y: 200, w: 200, h: 200},
+        selection: {x: 20, y: 20, w: 500, h: 800},
         logical: 'undefined',
         physical: physical,
         previousItem: previousItem

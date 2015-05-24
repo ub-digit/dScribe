@@ -1,23 +1,24 @@
 <header><h2>{{item.title}}</h2></header>
 {{#if item.partnerPage}}
-{{#if activeFrame}}
-<button class="btn btn-default" {{action 'copyFrame' item item.partnerPage}}>Kopiera ram för uppslag</button>
-{{/if}}
+
 {{/if}}
 {{item.physical}}
-<div class="btn-group" role="group" aria-label="...">
-  <button class="btn btn-default" {{action 'setPhysical' item 'undefined'}}><i class="fa fa-ban" title="undefined"></i>
-</button>
-<button class="btn btn-default" {{action 'setPhysical' item 'LeftPage'}}><i class="fa fa-align-right" title="LeftPage"></i></button>
-  <button class="btn btn-default" {{action 'setPhysical' item 'RightPage'}}><i class="fa fa-align-left" title="RightPage"></i></button>
-  
-  <button class="btn btn-default" {{action 'setPhysical' item 'DoublePage'}}><i class="fa fa-arrows-h" title="DoublePage"></i>
-</button>
-</div>
 <br/>
+<div>
+<div class="btn-group-vertical vtop" role="group" aria-label="...">
+  <button {{bind-attr class=":btn :btn-default item.isUndefined:active"}} {{action 'setPhysical' item 'undefined'}} title="undefined"><i class="fa fa-ban"></i>
+</button>
+<button {{bind-attr class=":btn :btn-default item.isLeftPage:active"}} {{action 'setPhysical' item 'LeftPage'}} title="LeftPage"><i class="fa fa-align-right" ></i></button>
+  <button {{bind-attr class=":btn :btn-default item.isRightPage:active"}} {{action 'setPhysical' item 'RightPage'}} title="RightPage"><i class="fa fa-align-left"></i></button>
+  
+  <button {{bind-attr class=":btn :btn-default item.isDoublePage:active"}} {{action 'setPhysical' item 'DoublePage'}} title="DoublePage"><i class="fa fa-arrows-h"></i>
+</button>
+<button {{bind-attr class=":btn :btn-primary"}} {{bind-attr disabled=item.isSameSelectionAsPartner}} {{action 'copyFrame' item item.partnerPage}} title="Copy frames"><i class="fa fa-copy"></i></button>
+</div>
 {{#unless enteredViewport}}
 <img height="700" {{ bind-attr src=item.tiny}} >
 {{/unless}}
 {{#if enteredViewport}}
 {{active-image item=item}}
 {{/if}}
+</div>
