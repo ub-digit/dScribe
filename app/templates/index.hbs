@@ -1,31 +1,49 @@
 <div class="container">
   <div class="row">
     {{#each item in model}}
-    {{#if item.isAlone}}
-    {{#if item.isRightPage}}
-    <div class="col-xs-offset-6 col-xs-6">
-      {{inactive-image item=item}}
-    </div>
-    {{/if}}
-    {{#if item.isLeftPage}}
-    <div class="col-xs-6">
-      {{inactive-image item=item}}
-    </div>
-    <div class="col-xs-6">
-    </div>
-    {{/if}}
-    {{else}}
-    {{#if item.isRightPage}}
-    <div class="col-xs-6 pull-right">
-      {{inactive-image item=item}}
-    </div>
-    {{/if}}
-    {{#if item.isLeftPage}}
-    <div class="col-xs-6 pull-left">
-      {{inactive-image item=item}}
-    </div>
-    {{/if}}
-    {{/if}}
+    {{item-wrapper item=item}}
+    {{#if asd}}
+      {{#if item.isAlone}}
+        {{#if item.isRightPage}}
+          <div class="col-xs-offset-6 col-xs-6">
+            {{item-wrapper item=item}}
+          </div>
+        {{/if}}
+        {{#if item.isLeftPage}}
+          <div class="col-xs-6">
+            {{item-wrapper item=item}}
+          </div>
+          <div class="col-xs-6">
+          </div>
+        {{/if}}
+        {{#if item.isDoublePage}}
+          <div class="col-xs-12">
+            {{item-wrapper item=item}}
+          </div>
+        {{/if}}
+        {{#if item.isUndefined}}
+          <div class="col-xs-6">
+            {{item-wrapper item=item}}
+          </div>
+        {{/if}}
+      {{else}}
+        {{#if item.isRightPage}}
+          <div class="col-xs-6 pull-right">
+            {{item-wrapper item=item}}
+          </div>
+        {{/if}}
+        {{#if item.isLeftPage}}
+          <div class="col-xs-6 pull-left">
+            {{item-wrapper item=item}}
+          </div>
+        {{/if}}
+        {{#if item.isUndefined}}
+          <div class="col-xs-6">
+            {{item-wrapper item=item}}
+          </div>
+        {{/if}}
+      {{/if}}
+      {{/if}}
     {{/each}}
   </div>
 </div>

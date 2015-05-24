@@ -1,7 +1,0 @@
-<header><h2>{{item.title}}</h2></header>
-  {{#unless enteredViewport}}
-    <img height="700" {{ bind-attr src=item.tiny}} >
-  {{/unless}}
-  {{#if enteredViewport}}
-    {{active-image item=item}}
-  {{/if}}
