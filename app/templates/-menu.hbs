@@ -1,0 +1,23 @@
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      {{#link-to 'index' class="navbar-brand"}}DSCRIBE{{/link-to}}
+    </div>
+    <ul class="nav navbar-nav">
+      {{#if session.isAuthenticated}}
+      {{/if}}
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      {{#if session.isAuthenticated}}
+      <p class="navbar-text"><i class="fa fa-user"></i><strong> {{session.name}}</strong></p>
+      <li>
+        <a href="javascript:void(0)" {{action 'invalidateSession'}}>Logga ut</a>
+      </li>
+      {{else}}
+      <li>
+       {{#link-to 'login'}}Logga in{{/link-to}}
+     </li>
+     {{/if}}
+   </ul>
+ </div>
+</nav>
