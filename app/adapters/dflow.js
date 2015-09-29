@@ -1,8 +1,9 @@
 import Ember from 'ember';
-import ENV from 'd-flow-ember/config/environment';
+import ENV from 'd-scribe/config/environment';
 export default Ember.Object.extend({
   endpoints: {
-    job: { path: 'api/jobs'}
+    job: { path: 'api/jobs'},
+    thumbnail: { path: 'api/thumbnails'}
   },
   sessionHeaders: function() {
     var session = this.container.lookup('simple-auth-session:main');
